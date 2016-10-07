@@ -192,6 +192,7 @@ module.exports = {
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
+        inject: false,
         minifyURLs: true
       }
     }),
