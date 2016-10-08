@@ -66,6 +66,18 @@ class App extends Component {
 
   componentDidMount() {
     this.gatherTabs();
+
+    chrome.tabs.onCreated.addListener( (tab) => {
+      this.gatherTabs();
+    });
+
+    chrome.tabs.onRemoved.addListener( (tab, info) => {
+      this.gatherTabs();
+    });
+
+    chrome.tabs.onUpdated.addListener( (tabId, info, tab) => {
+      this.gatherTabs();
+    });
   }
 
   getTabs() {
