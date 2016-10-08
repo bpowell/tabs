@@ -11,7 +11,7 @@ class TabLink extends Component {
   }
 
   closeTab(id) {
-    chrome.tabs.remove(id)
+    chrome.tabs.remove(id, () => {this.props.gathertabs()})
   }
 
   render() {
@@ -54,17 +54,21 @@ class App extends Component {
     return result;
   };
 
-  getTabs() {
-    chrome.tabs.query({}, function(tabs) {
-      let content = [];
+  gatherTabs() {
+    let content = [];
+    chrome.tabs.query({}, (tabs) => {
       for(let i = 0; i<tabs.length; i++) {
-        content.push(<TabLink tab={tabs[i]} number={i+1} />);
+        content.push(<TabLink gathertabs={this.gatherTabs.bind(this)} tab={tabs[i]} number={i+1} />);
       }
-
       this.setState({content: content});
-    }.bind(this));
+    });
+  }
 
+  componentDidMount() {
+    this.gatherTabs();
+  }
 
+  getTabs() {
     const rows = this.chunks(this.state.content, 4);
     var layout =
       rows.map((row) => (
