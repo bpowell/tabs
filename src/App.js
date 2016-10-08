@@ -10,6 +10,10 @@ class TabLink extends Component {
     chrome.tabs.update(id, {active: true});
   }
 
+  closeTab(id) {
+    chrome.tabs.remove(id)
+  }
+
   render() {
     return (
       <Col md={3} style={{padding: '10px'}}>
@@ -17,7 +21,7 @@ class TabLink extends Component {
           <CardTitle expand style={{background: 'url(' +this.props.tab.favIconUrl+ ') bottom right no-repeat #46B6AC', height: '176px', color: '#fff'}}>{this.props.tab.title}</CardTitle>
           <CardActions border>
             <Button onClick={() => this.switchTab(this.props.tab.id)}><Icon name="open_in_browser" />Goto</Button>
-            <Button><Icon name="close" />Close</Button>
+            <Button onClick={() => this.closeTab(this.props.tab.id)}><Icon name="close" />Close</Button>
           </CardActions>
         </Card>
       </Col>
