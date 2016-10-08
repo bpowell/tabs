@@ -66,22 +66,22 @@ class App extends Component {
 
 
     const rows = this.chunks(this.state.content, 4);
-    let q = []
-    q = rows.map(function(item, i) {
-      return (
-        <Row>
-          {
-            item.map(function(q, j) {
-              return (
-                q
-              )
-            })
-          }
-      </Row>
-      )
-    })
+    var layout =
+      rows.map((row) => (
+        (
+          <Row>
+            {
+              row.map((col) => (
+                (
+                  col
+                )
+              ))
+            }
+          </Row>
+        )
+      ));
 
-    return q;
+    return layout;
   }
 
   render() {
